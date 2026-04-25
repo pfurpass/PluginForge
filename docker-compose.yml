@@ -1,0 +1,53 @@
+# PluginForge — full-stack docker setup.
+#
+#   docker compose up --build
+#       → http://localhost:8080  (frontend)
+#         /build, /health are reverse-proxied to the backend internally.
+#
+#   docker compose down
+#       → stop both services
+#
+# For day-to-day development you don't need this — `npm run dev` in
+# frontend/ + `npm start` in backend/ is faster. Use this for production
+# deploys, demos, or to spin up the build-service-with-jail in one shot.
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: pluginforge-backend
+    # Sandbox the Maven compile environment.
+    mem_limit: 1g
+    cpus: 2
+    pids_limit: 256
+    restart: unless-stopped
+    # Don't expose 8787 publicly — the frontend nginx reaches it via the
+    # internal docker network. Comment in the `ports:` block below to also
+    # expose it directly (e.g. for curl-based debugging).
+    # ports:
+    #   - "8787:8787"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8787/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      - pluginforge
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pluginforge-frontend
+    depends_on:
+      - backend
+    ports:
+      # Map host:8080 → container:80. Change the host part to taste.
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - pluginforge
+
+networks:
+  pluginforge:
+    driver: bridge

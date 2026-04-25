@@ -1,0 +1,68 @@
+# ============ Node / npm ============
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Build output
+dist/
+build/
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
+.next/
+.nuxt/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# ============ Maven / Java (generated examples) ============
+target/
+*.class
+*.jar
+*.war
+hs_err_pid*
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# ============ OS / Editor cruft ============
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.*.kate-swp
+
+# ============ Local & secrets ============
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.local
+
+# ============ Test & coverage ============
+coverage/
+.nyc_output/
+*.lcov
+
+# ============ Project-specific ============
+# Generated example projects (regenerated from source — keep them out of git
+# unless the user explicitly wants checked-in samples).
+examples-output/
+
+# Optional: drop here if you ever wire up the build service to write logs.
+backend/logs/
+backend/tmp/

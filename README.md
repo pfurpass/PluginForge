@@ -1,11 +1,13 @@
+> 🇬🇧 You are here · 🇩🇪 [Deutsche README](README.de.md)
+
 <div align="center">
 
 # 🔨 PluginForge
 
-**Visueller Baukasten für Minecraft-Java-Plugins.**
-Ziehe Blöcke wie in Scratch zusammen — bekomm fertigen Java-Code und eine
-lauffähige `.jar` für **Paper · Spigot · Velocity · BungeeCord**. Keine
-Java-Kenntnisse nötig.
+**A visual builder for Minecraft Java plugins.**
+Drag blocks together like in Scratch — get production-ready Java code and a
+runnable `.jar` for **Paper · Spigot · Velocity · BungeeCord**.
+No Java knowledge required.
 
 ![PluginForge Screenshot](img/image.png)
 
@@ -13,120 +15,120 @@ Java-Kenntnisse nötig.
 
 ---
 
-## ✨ Was du bekommst
+## ✨ What you get
 
-- **Live-Code-Vorschau** — der generierte Java-Code mit Syntax-Highlighting läuft beim Bauen mit dir mit
-- **17 Block-Kategorien** + 10 dynamische Event-Kontext-Kategorien (erscheinen automatisch wenn der passende Event-Block im Workspace liegt)
-- **Vier Plattformen**: Paper 1.21, Spigot, Velocity, BungeeCord — Plugin-Code wird plattform-korrekt erzeugt
-- **Lobby-tauglich**: GUI-Menüs, Scoreboard, BossBar, Title/ActionBar, Persistent-Item-Marker (für Navigator-Compass), Hide-Players, Velocity-Push, Cooldowns
-- **Project-ZIP-Export** für lokales `mvn package` oder direkter **„JAR bauen"** über den Build-Service
-- **Mehrsprachig** — Deutsche und englische Block-Labels
-- **Speichern/Laden** via LocalStorage oder portable `.mcpb.json`-Dateien
+- **Live code preview** — generated Java with syntax highlighting updates as you build
+- **17 block categories** + 10 dynamic event-context categories that pop in when the matching event block is on the canvas
+- **Four target platforms**: Paper 1.21, Spigot, Velocity, BungeeCord — code generation is platform-aware
+- **Lobby-grade tooling**: GUI menus, scoreboards, boss bars, titles/action bars, persistent item markers (for navigator-compass patterns), hide-players, push velocity, cooldowns
+- **Project-ZIP export** for local `mvn package`, or one-click **Build JAR** through the bundled compile service
+- **Bilingual** — German and English block labels (full UI + block names)
+- **Save & load** via LocalStorage or portable `.mcpb.json` files
 
 ---
 
 ## 🚀 Quickstart
 
-### Variante A — Docker Compose (empfohlen)
+### Option A — Docker Compose (recommended)
 
-Ein Befehl, alles läuft:
+One command, full stack:
 
 ```bash
 docker compose up --build
 ```
 
-→ Öffne http://localhost:8080
+→ Open http://localhost:8080
 
-> **Hinweis:** Wenn du noch das alte `docker-compose` (v1, Python) hast, gibt
-> es Bugs mit Docker 24+. Installiere das neue Plugin:
-> `sudo apt-get install docker-compose-plugin` und nutze `docker compose`
-> (mit Leerzeichen).
+> **Heads-up:** if you still have the legacy `docker-compose` (Python v1.x),
+> it has incompatibilities with Docker 24+. Install the new plugin:
+> `sudo apt-get install docker-compose-plugin` and use `docker compose`
+> (with a space).
 
-### Variante B — Lokale Dev-Umgebung
+### Option B — Local dev environment
 
-Schnellster Iterations-Loop für Entwicklung am Baukasten selbst.
-Voraussetzungen: **Node 20+**, **Java 21**, **Maven 3.9+**.
+Fastest iteration loop if you're hacking on PluginForge itself.
+Requirements: **Node 20+**, **Java 21**, **Maven 3.9+**.
 
 ```bash
-# Terminal 1 — Frontend (Hot-Reload)
+# Terminal 1 — frontend with hot reload
 cd frontend
 npm install
 npm run dev               # → http://localhost:5173
 
-# Terminal 2 — Build-Service (optional, für „JAR bauen"-Knopf)
+# Terminal 2 — build service (optional, powers the "Build JAR" button)
 cd backend
 npm install
 npm start                 # → http://localhost:8787
 ```
 
-### Variante C — Ohne Backend (nur Frontend)
+### Option C — Frontend only
 
-Du kannst PluginForge auch komplett ohne Build-Service betreiben. Klick auf
-**„Projekt-ZIP"** → entpacke → `mvn package` lokal. Wenn der Service nicht
-läuft, schlägt der Builder das automatisch vor.
+You can run PluginForge without the build service. Click **Project ZIP** →
+unzip → `mvn package` locally. If the service isn't reachable, the editor
+shows a fallback modal that walks you through this.
 
 ---
 
-## 🧱 Block-Kategorien
+## 🧱 Block categories
 
-| Icon | Kategorie | Inhalt (Auswahl) |
-|------|-----------|------------------|
+| Icon | Category | Highlights |
+|------|----------|------------|
 | ⚡ | **Events** | Join, Quit, Death, Chat, Block Break/Place, Interact, Inventory Click, Item Pickup, Damage, Respawn, Hand-Swap, Drop, Weather, Server-Start |
-| 🧑 | **Player** | Nachricht, Teleport, Item geben, Health/Food/Level/XP, Title/ActionBar/Tab, Compass-Ziel, Velocity-Push, Cooldown, Hide/Show, Potion-Effekte, Sound, Kick |
-| 🌍 | **World** | Block setzen/lesen, Entity spawnen, Blitz, Zeit/Wetter, Drop, Explosion, Partikel, Spawn |
-| 🎒 | **Items** | Erstellen (Dropdown + freier Material-Name), Anzeigename/Lore/Enchantments/Unbreakable, Persistent-Marker, Material-Vergleich |
-| 📋 | **GUI / Menüs** | Inventar erstellen (1–6 Reihen), Slot füllen, öffnen/schließen, Ränder füllen |
-| 📊 | **Scoreboard** | Sidebar mit Titel, Zeile setzen, entfernen |
-| 🎯 | **BossBar** | Anzeigen (Titel/Farbe/Progress), verstecken |
-| ⌘ | **Commands** | Custom Command mit Beschreibung, Sender, Argumente |
-| 🔀 | **Logic** | if/else, Vergleiche, AND/OR/NOT, Boolean, return |
-| 📦 | **Variables** | Globale Variablen |
-| ⏱ | **Scheduler** | Wait Ticks, Repeat Ticks |
-| ⚙ | **Config** | `config.yml` lesen/schreiben/speichern |
+| 🧑 | **Player** | Send message, teleport, give item, set health/food/level/XP, title/action bar/tab, compass target, push velocity, cooldown, hide/show, potion effects, sound, kick |
+| 🌍 | **World** | Set/get block, spawn entity, lightning, time/weather, drop item, explosion, particles, set spawn |
+| 🎒 | **Items** | Create (dropdown + free material name), display name/lore/enchantments/unbreakable, persistent marker, material check |
+| 📋 | **GUI / Menus** | Create inventory (1–6 rows), set slot, open/close, fill borders |
+| 📊 | **Scoreboard** | Sidebar with title, set line, clear |
+| 🎯 | **BossBar** | Show (title/color/progress), hide |
+| ⌘ | **Commands** | Custom command with description, sender, argument access |
+| 🔀 | **Logic** | if/else, comparisons, AND/OR/NOT, boolean, return |
+| 📦 | **Variables** | Global variables |
+| ⏱ | **Scheduler** | Wait ticks, repeat ticks |
+| ⚙ | **Config** | Read/write/save `config.yml` |
 | 🔐 | **Permissions** | hasPermission, isOp |
-| 🌐 | **Network** | (Velocity/Bungee) Server-Switch, Server-Liste |
-| 🖥 | **Konsole** | Konsolen-Log, Befehl als Konsole/Spieler ausführen |
-| ✏ | **Text** | 2/3/4/5-Slot-Joins, färben (10 Farben), Contains/Replace/Case |
-| 🔢 | **Math** | Arithmetik, Random, Round, Modulo |
+| 🌐 | **Network** | (Velocity/Bungee) server switch, server list |
+| 🖥 | **Console** | Console log, run command as console/player |
+| ✏ | **Text** | 2/3/4/5-slot joins, color (10 chat colors), contains/replace/case |
+| 🔢 | **Math** | Arithmetic, random, round, modulo |
 
-**Plus dynamisch:** Sobald du `wenn Spieler den Server betritt` aufs Canvas
-ziehst, erscheint **📩 Join-Event** mit `setze Join-Nachricht` /
-`verstecke Join-Nachricht`. Analog für Quit, Death, Chat, Interact,
-Inventory-Click, Block-Break/Place, Damage, Command-Preprocess.
-
----
-
-## 📦 Beispiele
-
-Im Startbildschirm unter **Beispiele**:
-
-| Beispiel | Was es zeigt |
-|----------|--------------|
-| **Welcome-Plugin** | Begrüßt Joins, gibt einen Diamanten, broadcastet eine Nachricht |
-| **Teleport-Command** | `/spawn` teleportiert den Sender |
-| **Mini-Game** | Bei Block-Abbau 50 % Chance auf Blitzeinschlag |
-
-Jeweils: **Beispiele** → Plugin wählen → **Projekt-ZIP** → `mvn package` →
-`.jar` in `paper-server/plugins/` werfen → Server starten.
+**Plus dynamic categories:** drop `when player joins` on the canvas and
+**📩 Join-Event** appears with `set join message` / `hide join message`.
+Same for Quit, Death, Chat, Interact, Inventory-Click, Block-Break/Place,
+Damage, Command-Preprocess.
 
 ---
 
-## 🏗 Architektur
+## 📦 Examples
+
+Available from the start screen under **Examples**:
+
+| Example | What it demonstrates |
+|---------|----------------------|
+| **Welcome plugin** | Greets joining players, gives a diamond, broadcasts |
+| **Teleport command** | `/spawn` teleports the sender |
+| **Mini-game** | 50 % chance of lightning strike on block break |
+
+For each: **Examples** → pick → **Project ZIP** → `mvn package` → drop the
+`.jar` into `paper-server/plugins/` → start server.
+
+---
+
+## 🏗 Architecture
 
 ```
 ┌─────────────────┐    XML    ┌──────────────────┐
-│   Blockly UI    │──────────▶│  Code-Generator  │  (per Plattform)
+│   Blockly UI    │──────────▶│  Code generator  │  (per platform)
 └─────────────────┘           │ base + assemble  │
                               └────────┬─────────┘
                                        │ Java + plugin.yml + pom.xml
                                        ▼
                               ┌──────────────────┐
-                              │ JSZip im Browser │  →  Download .zip
+                              │ JSZip in browser │  →  download .zip
                               └────────┬─────────┘
                                        │ POST /build (optional)
                                        ▼
                               ┌──────────────────┐
-                              │  Node + Maven    │  →  fertige .jar
+                              │  Node + Maven    │  →  built .jar
                               │   (backend/)     │
                               └──────────────────┘
 ```
@@ -134,39 +136,40 @@ Jeweils: **Beispiele** → Plugin wählen → **Projekt-ZIP** → `mvn package` 
 ```
 open-coding/
 ├── frontend/        ← React + TypeScript + Vite + Blockly
-│   ├── src/blockly/      Custom Blocks + Java-Generators
+│   ├── src/blockly/      Custom blocks + Java generators
 │   ├── src/components/   UI (StartScreen, Workspace, BlocklyEditor, …)
-│   ├── src/export/       Maven-Templates + JSZip-Export
-│   ├── Dockerfile        Multi-Stage: Node-Build + Nginx-Serve
-│   └── nginx.conf        Reverse-Proxy /build → Backend
+│   ├── src/export/       Maven templates + JSZip exporter
+│   ├── Dockerfile        Multi-stage: Node build + Nginx serve
+│   └── nginx.conf        Reverse-proxies /build → backend
 ├── backend/         ← Node + Express + Maven (compile service)
 │   ├── server.js         POST /build → returns .jar
 │   └── Dockerfile        Java 21 + Maven 3.9 + Node 20
 ├── docker-compose.yml
-├── README.md
+├── README.md  (this file)
+├── README.de.md
 └── .gitignore
 ```
 
-**Code-Generator** (`frontend/src/blockly/generators/base.ts`) ist
-plattform-bewusst: pro Block emittiert er Java-Snippets passend zur Ziel-API
-(z.B. Adventure `Component.text()` für Paper, plain-string `sendMessage()`
-für Spigot).
+The **code generator** (`frontend/src/blockly/generators/base.ts`) is
+platform-aware: each block emits Java that matches the target API (e.g.
+Adventure `Component.text()` on Paper, plain-string `sendMessage()` on
+Spigot).
 
-**Type-Coercion** im Generator wraps automatisch:
-- String-Slots → `String.valueOf(...)` für Numbers/Booleans/Objects
-- Number-Slots → `__num(...)` Helper für robusten String→double-Cast
-- Player-Slots → kontextabhängig (`event.getPlayer()` /
-  `event.getWhoClicked()` / Sender-Cast / …)
+**Type coercion** in the generator wraps automatically:
+- String slots → `String.valueOf(...)` for Numbers/Booleans/Objects
+- Number slots → `__num(...)` helper for robust String → double conversion
+- Player slots → context-aware (`event.getPlayer()` /
+  `event.getWhoClicked()` / sender-cast / …)
 
 ---
 
-## 🔧 Erweitern
+## 🔧 Extending
 
-### Neuen Block hinzufügen
+### Add a new block
 
-Drei Dateien anfassen:
+Touch three files:
 
-1. **`frontend/src/blockly/blocks.ts`** — Block-Definition (JSON):
+1. **`frontend/src/blockly/blocks.ts`** — block definition (JSON):
    ```ts
    {
      type: 'player_jump',
@@ -177,7 +180,7 @@ Drei Dateien anfassen:
    }
    ```
 
-2. **`frontend/src/blockly/generators/base.ts`** — Java-Generator:
+2. **`frontend/src/blockly/generators/base.ts`** — Java generator:
    ```ts
    generator.forBlock['player_jump'] = function (block) {
      const p = valueOrDefault(block, 'PLAYER', '', 'Player');
@@ -189,27 +192,26 @@ Drei Dateien anfassen:
    };
    ```
 
-3. **`frontend/src/blockly/toolbox.ts`** — Toolbox-Eintrag, ggf. mit
-   `PLATFORM_DISABLED`-Eintrag für inkompatible Plattformen.
+3. **`frontend/src/blockly/toolbox.ts`** — toolbox entry, plus a
+   `PLATFORM_DISABLED` row if the block isn't available everywhere.
 
-### EN-Übersetzung ergänzen
+### Add an English translation
 
-Trag den deutschen Original-String + die englische Übersetzung in
-`frontend/src/blockly/blockI18n.ts` ein. Strings ohne Eintrag fallen auf
-Deutsch zurück.
+Add the German source string + English equivalent to
+`frontend/src/blockly/blockI18n.ts`. Strings without an entry fall back to
+German.
 
-### Neue Plattform unterstützen
+### Support a new platform
 
-`Platform`-Variante in `frontend/src/types/index.ts`, dann `assembleXxx()` in
-`assemble.ts`, `pomXml()`-Template in `templates.ts`, plus pro Block die
-plattform-spezifischen Branches im Generator.
+Add a `Platform` variant in `frontend/src/types/index.ts`, then
+`assembleXxx()` in `assemble.ts`, a `pomXml()` template in `templates.ts`,
+plus per-block platform branches in the generator.
 
 ---
 
-## 🛡 Sicherheit (Production-Deploy)
+## 🛡 Security (production deployments)
 
-Der **Build-Service kompiliert beliebigen User-Code mit Maven**. Pflicht:
-sandboxen.
+The **build service compiles arbitrary user code with Maven**. Sandbox it.
 
 ```bash
 docker run --rm \
@@ -221,15 +223,16 @@ docker run --rm \
 ```
 
 Plus:
-- Per-IP Rate-Limit (z.B. `express-rate-limit`)
-- Upload-Cap niedriger als 10 MB falls Missbrauch
-- Maven-Repos auf einen vertrauenswürdigen Mirror pinnen
-- Non-Root-User, keine Shell
+- Per-IP rate limiting (e.g. `express-rate-limit`)
+- Tighten the upload cap below the current 10 MB if you see abuse
+- Pin Maven repos to a trusted mirror
+- Run as a non-root user, no shell
 
-Siehe [`backend/README.md`](backend/README.md) für die Hardening-Checkliste.
+See [`backend/README.md`](backend/README.md) for the full hardening
+checklist.
 
 ---
 
-## 📜 Lizenz
+## 📜 License
 
 MIT

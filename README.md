@@ -1,37 +1,65 @@
 # PluginForge — Build Service
 
-Compiles uploaded Maven project ZIPs into `.jar` files.
+Optionaler Backend-Service für den **PluginForge-Baukasten**. Nimmt das vom
+Frontend generierte Maven-Projekt-ZIP entgegen, kompiliert es serverseitig
+mit Maven und liefert die fertige `.jar` zurück.
 
-## Local
+> Du kannst PluginForge auch komplett **ohne** diesen Service benutzen —
+> dann lädt das Frontend statt einer `.jar` direkt das Maven-Projekt-ZIP
+> herunter, und du führst `mvn package` lokal aus. Dieser Service spart dir
+> diesen letzten Schritt.
 
-Requires Java 21 + Maven 3.9+ + Node 20+ on PATH.
+## Lokal starten
+
+Voraussetzung: Java 21 + Maven 3.9+ + Node 20+ auf PATH.
 
 ```bash
 npm install
 npm start
-# listens on :8787
+# läuft auf :8787
 ```
 
-## Docker (sandboxed)
+## Docker (sandboxed — empfohlen für Produktivbetrieb)
 
 ```bash
-docker build -t mcpb-build .
-docker run --rm -p 8787:8787 --memory=1g --cpus=2 mcpb-build
+docker build -t pluginforge-build .
+docker run --rm -p 8787:8787 --memory=1g --cpus=2 pluginforge-build
 ```
 
 ## API
 
 `POST /build` — multipart form
-- `source`: zip of a Maven project (must contain a `pom.xml` somewhere)
+- `source`: ZIP eines Maven-Projekts (muss ein `pom.xml` irgendwo enthalten)
 - `platform`: `paper` | `spigot` | `velocity` | `bungee`
 
-Returns the compiled `.jar` on success, plain-text Maven log on failure.
+Bei Erfolg → kompilierte `.jar`. Bei Fehler → plain-text Maven-Log.
 
-## Hardening checklist (production)
+## Hardening-Checkliste (Produktion)
 
-- [ ] Run inside Docker with `--memory`, `--cpus`, `--pids-limit`, `--read-only`
-- [ ] Drop network capabilities except for Maven's outbound HTTPS
-- [ ] Per-IP rate limit (e.g. `express-rate-limit`) and request quotas
-- [ ] Cap upload size lower than the current 10 MB if abuse is observed
-- [ ] Run as non-root user, no shell
-- [ ] Pin Maven repos to a trusted mirror
+Da dieser Service beliebigen User-Code per Maven kompiliert, ist Sandboxing
+Pflicht:
+
+- [ ] Inside Docker laufen lassen mit `--memory`, `--cpus`, `--pids-limit`, `--read-only`
+- [ ] Netzwerk-Capabilities außer Mavens HTTPS rausnehmen
+- [ ] Per-IP Rate-Limit (z.B. `express-rate-limit`) und Request-Quoten
+- [ ] Upload-Größe niedriger als die aktuellen 10 MB cappen falls Missbrauch auftaucht
+- [ ] Non-Root-User, keine Shell
+- [ ] Maven-Repos auf einen vertrauenswürdigen Mirror pinnen
+
+## Verhältnis zum Baukasten
+
+```
+Frontend (Browser, Blockly-Baukasten)
+     ↓ ZIP
+Backend (dieser Service, Maven)
+     ↓ JAR
+Spieler (kopiert in plugins/-Ordner)
+```
+
+Das Frontend ist der **Baukasten** — wo Plugins per Drag & Drop entstehen.
+Dieses Backend ist nur der **Compile-Schritt** — eine kleine, isolierte
+Pipeline, die fertige Block-Diagramme zu lauffähigen `.jar`s macht. Der
+Baukasten funktioniert auch komplett ohne dieses Backend (siehe
+„Projekt-ZIP"-Knopf im Frontend).
+
+Siehe `../README.md` für die Gesamt-Übersicht.
